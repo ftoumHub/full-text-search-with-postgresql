@@ -1,5 +1,3 @@
-Basé sur la vidéo : https://www.youtube.com/watch?v=szfUbzsKvtE
-
 Build du conteneur
 ```bash
 docker-compose up --build
