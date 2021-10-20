@@ -37,15 +37,13 @@
 
 -- I - Vue d'ensemble de la recherche Full Text
 
-
--- 1) TS_VECTOR : un type de donnée représentant un document optimisé pour la recherche full text.
+-- 1) TS_VECTOR : type de donnée représentant un document optimisé pour la recherche full text.
 
 -- Un **tsvector** est une liste triée de **lexèmes**.
 
 -- Lexème?
 -- Les mots utiles et seulement leur racine.
--- Exemple : un verbe sans terminaison :
--- Empêcher ⇒ empech
+-- Exemple : un verbe sans terminaison : Empêcher ⇒ empech
 
 
 -- Ex, on passe un document (ici une phrase) à la fonction **to_tsvector**. Celle-ci va retourner le tsvector correspondant au document.
@@ -358,9 +356,19 @@ where fts.document @@ to_tsquery('Dead | Horse')
 order by ts_rank(fts.document, to_tsquery('Dead | Horse')) desc;
 
 
--- KITSUNE_PPROD
+-- Pour pallier au manque de granularité de la fonction ts_rank,
+-- on s'est appuyé sur une autre fonction de postgresql qui est le calcul de similarité
 
-select similarity('john','joh');
-select similarity('joe','joh');
+-- si la similarité est exact on obtient la valeur 1
+with l(term) as (
+    values
+    ('john'),
+    ('joh'),
+    ('johhhhhhhh'),
+    ('joe'),
+    ('geo')
+)
+select term, similarity('john',term) from l;
 
-select to_tsvector('english', '19801010') @@ to_tsquery('english', '19801010');
+
+-- THE END!!!!
