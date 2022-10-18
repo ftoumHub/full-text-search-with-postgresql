@@ -308,7 +308,7 @@ where docs."TrackId" = subquery.trackId;*/
 select document_with_weights from docs;
 
 -- Recherche avec setWeight A sur le titre de l'album
--- Les résultats matchant dans le titre de l'album sont prvivilégiés au détriment
+-- Les résultats matchant dans le titre de l'album sont privilégiés au détriment
 -- des résultats matchant dans le titre des chansons
 select art."Name" as artiste,
        al."Title" as album,
